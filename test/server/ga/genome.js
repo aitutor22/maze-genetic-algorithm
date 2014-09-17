@@ -37,11 +37,10 @@ describe('updateFitnessScore function', function() {
     }).should.throw('invalid argument passed in');
   });
 
-  it('should take a number between 0 and 1', function() {
+  it('should take a number greater or equals to 0', function() {
     (function() {
       genome.updateFitnessScore(-1);
-      genome.updateFitnessScore(2);
-    }).should.throw('should take a number between 0 and 1');
+    }).should.throw('should take a number greater or equals to 0');
   });
 
   it('should update fitnessScore field', function() {
