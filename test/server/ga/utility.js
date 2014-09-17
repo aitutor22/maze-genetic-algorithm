@@ -77,76 +77,100 @@ describe('convertBinaryToInteger', function() {
   });        
 });
 
-// describe('convertMovesToBinary', function() {
-//   it('should accept an array of numbers', function() {
-//     (function() {
-//       utility.convertMovesToBinary('123');
-//     }).should.throw('invalid argument passed in')
-//   });
+describe('convertIntegerToBinary', function() {
+  beforeEach(function() {
+    utility = Utility(3);
+  });
 
-//   it('should accept an array of numbers', function() {
-//     (function() {
-//       utility.convertMovesToBinary(['123', 232]);
-//     }).should.throw('invalid argument passed in')
-//   });  
+  it('should accept an array of numbers', function() {
+    (function() {
+      utility.convertIntegerToBinary('123');
+    }).should.throw('invalid argument passed in')
+  });
 
-//   it('should only accept numbers between 0-3', function() {
-//     (function() {
-//       utility.convertMovesToBinary([-1, 3, 2]);
-//     }).should.throw('invalid argument passed in');
+  it('should accept an array of numbers', function() {
+    (function() {
+      utility.convertIntegerToBinary(['123', 232]);
+    }).should.throw('invalid argument passed in')
+  });  
 
-//     (function() {
-//       utility.convertMovesToBinary([0, 1, 4]);
-//     }).should.throw('invalid argument passed in');    
-//   })
+  it('should only accept numbers between 0 and argument passed in when creating utility instance', function() {
+    (function() {
+      utility.convertIntegerToBinary([-1, 3, 2]);
+    }).should.throw('invalid argument passed in');
 
-//   it('should convert 0 to "00"', function() {
-//     utility.convertMovesToBinary([0]).should.equal('00');
-//   });
+    (function() {
+      utility.convertIntegerToBinary([0, 1, 4]);
+    }).should.throw('invalid argument passed in');    
 
-//   it('should convert 1 to "01"', function() {
-//     Utility.convertMovesToBinary([1]).should.equal('01');
-//   });  
+    (function() {
+      utility = Utility(2);
+      utility.convertIntegerToBinary([0, 1, 3]);
+    }).should.throw('invalid argument passed in');        
+  })
 
-//   it('should convert 2 to "10"', function() {
-//     Utility.convertMovesToBinary([2]).should.equal('10');
-//   });
+  it('should convert 0 to "00"', function() {
+    utility.convertIntegerToBinary([0]).should.equal('00');
 
-//   it('should convert 3 to "11"', function() {
-//     Utility.convertMovesToBinary([3]).should.equal('11');
-//   });    
+    utility = Utility(8);
+    utility.convertIntegerToBinary([0]).should.equal('0000');
+  });
 
-//   it('should convert a an array of numbers', function() {
-//     Utility.convertMovesToBinary([0, 1, 2, 3, 0]).should.equal('0001101100');
-//     Utility.convertMovesToBinary([1, 2, 3, 3, 1]).should.equal('0110111101');
-//   })
-// });
+  it('should convert 1 to "01"', function() {
+    utility.convertIntegerToBinary([1]).should.equal('01');
+    utility = Utility(8);
+    utility.convertIntegerToBinary([1]).should.equal('0001');    
+  });  
 
-// describe('converting bits to numbers and back', function() {
-//   var testData = [
-//     '0010000010011101101100111110001111001000000001111110001010000001101010',
-//     '0001001011100101100000101110010011101011100011101000011111000111000101',
-//     '1001110110001110001000101000111001001001011010101011001110110100010010',
-//     '0000001110000001110111001010110100100110101010110111000111100010011001',
-//     '1101010011101011011011011001110100001011111100100000101111100111100100',
-//     '1111001000010011010111100101101011101001100000000110001001111001100110',
-//     '1100101010011011001101011100000110011101000101000101110110111100101100',
-//     '0110010111100110110111010100000100111011110111110010111011000100011111',
-//     '1011011001110100110010101001101111001110010011010011001111000111000001',
-//     '0111101000111010011100011001110010001000111110011111100001001011001101',
-//     '1010101100000100100111001010011010100010100101110000100101110011001010',
-//     '1010111111011001111000000101101001110010001000111111111110010011001011',
-//     '1111001010110011100001000111101111101011110001101111100111101010111100',
-//     '0101110100010011100100011100111111111001001101110010101111001010010110',
-//     '1110011011100010111001101101101111010100101011010011101000010111010111',
-//     '1011001101110110110000101101110110101101100110110111010001111001101010',
-//     '1011000001100010110000010011100101000110101110101100101100110010000100',
-//     '0000110101010101010000010111000000101111001001110110111011100011110111'
-//     ];
+  it('should convert 2 to "10"', function() {
+    utility.convertIntegerToBinary([2]).should.equal('10');
 
-//   it('should convert correctly', function() {
-//     _.each(testData, function(data) {
-//       Utility.convertMovesToBinary(Utility.convertBinaryToInteger(data)).should.equal(data);
-//     });
-//   });
-// });
+    utility = Utility(8);
+    utility.convertIntegerToBinary([2]).should.equal('0010');        
+  });
+
+  it('should convert 3 to "11"', function() {
+    utility.convertIntegerToBinary([3]).should.equal('11');
+    utility = Utility(8);
+    utility.convertIntegerToBinary([3]).should.equal('0011');      
+  }); 
+
+  it('should convert 8 to "1000"', function() {
+    utility = Utility(8);
+    utility.convertIntegerToBinary([8]).should.equal('1000');      
+  });         
+
+  it('should convert a an array of numbers', function() {
+    utility.convertIntegerToBinary([0, 1, 2, 3, 0]).should.equal('0001101100');
+    utility.convertIntegerToBinary([1, 2, 3, 3, 1]).should.equal('0110111101');
+  })
+});
+
+describe('converting bits to numbers and back', function() {
+  var testData = [
+    '0010000010011101101100111110001111001000000001111110001010000001101010',
+    '0001001011100101100000101110010011101011100011101000011111000111000101',
+    '1001110110001110001000101000111001001001011010101011001110110100010010',
+    '0000001110000001110111001010110100100110101010110111000111100010011001',
+    '1101010011101011011011011001110100001011111100100000101111100111100100',
+    '1111001000010011010111100101101011101001100000000110001001111001100110',
+    '1100101010011011001101011100000110011101000101000101110110111100101100',
+    '0110010111100110110111010100000100111011110111110010111011000100011111',
+    '1011011001110100110010101001101111001110010011010011001111000111000001',
+    '0111101000111010011100011001110010001000111110011111100001001011001101',
+    '1010101100000100100111001010011010100010100101110000100101110011001010',
+    '1010111111011001111000000101101001110010001000111111111110010011001011',
+    '1111001010110011100001000111101111101011110001101111100111101010111100',
+    '0101110100010011100100011100111111111001001101110010101111001010010110',
+    '1110011011100010111001101101101111010100101011010011101000010111010111',
+    '1011001101110110110000101101110110101101100110110111010001111001101010',
+    '1011000001100010110000010011100101000110101110101100101100110010000100',
+    '0000110101010101010000010111000000101111001001110110111011100011110111'
+    ];
+
+  it('should convert correctly', function() {
+    _.each(testData, function(data) {
+      utility.convertIntegerToBinary(utility.convertBinaryToInteger(data)).should.equal(data);
+    });
+  });
+});
