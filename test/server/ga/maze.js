@@ -27,6 +27,10 @@ describe('initializing maze', function() {
     _.isEqual(maze.getMap(), testMap).should.be.true;
   });
 
+  it('numMoves should be set to 0', function() {
+    maze.getNumMoves().should.equal(0);
+  });
+
   it('should throw error if no start or exit pos are in map', function() {
     (function() {
       maze.init([
@@ -151,4 +155,32 @@ describe('getDistanceFromExitPos', function() {
     maze.makeSeriesOfMoves([2, 2]);
     maze.getDistanceFromExitPos().should.equal(5);
   });  
+});
+
+describe('numMoves', function() {
+  beforeEach(function() {
+    maze.init(testMap);
+  });
+
+  it('should increment each time make a move', function() {
+    var numMoves = maze.getNumMoves();
+    maze.makeSeriesOfMoves([3, 3, 2, 1]);
+    maze.getNumMoves().should.equal(4);
+  });
+
+  it('should work with separate makeSeriesOfMoves calls if true isn\'t passed in as second argument', function() {
+    var numMoves = maze.getNumMoves();
+    maze.makeSeriesOfMoves([3, 3, 2, 1]);
+    maze.makeSeriesOfMoves([2, 1]);
+    maze.getNumMoves().should.equal(6);
+  });  
+
+  it('should reset if true is passed in as second argument', function() {
+    var numMoves = maze.getNumMoves();
+    maze.makeSeriesOfMoves([3, 3, 2, 1]);
+    maze.getNumMoves().should.equal(4);
+
+    maze.makeSeriesOfMoves([2, 1], true);
+    maze.getNumMoves().should.equal(2);
+  });    
 })
