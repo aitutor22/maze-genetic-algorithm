@@ -18,3 +18,29 @@ describe('constructor', function() {
     });
   })
 });
+
+describe('updateFitnessScore function', function() {
+  it('should take a number', function() {
+    (function() {
+      genome.updateFitnessScore(1);
+    }).should.not.throw();
+
+    (function() {
+      genome.updateFitnessScore();
+    }).should.throw('invalid argument passed in');
+  });
+
+  it('should take a number between 0 and 1', function() {
+    (function() {
+      genome.updateFitnessScore(-1);
+      genome.updateFitnessScore(2);
+    }).should.throw('should take a number between 0 and 1');
+  });
+
+  it('should update fitnessScore field', function() {
+    genome.fitnessScore = 0.5;
+
+    genome.updateFitnessScore(1);
+    genome.fitnessScore.should.equal(1);
+  })
+});
